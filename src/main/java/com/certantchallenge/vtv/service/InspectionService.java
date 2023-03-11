@@ -1,18 +1,26 @@
 package com.certantchallenge.vtv.service;
 
 import com.certantchallenge.vtv.dto.InspectionDTO;
+import com.certantchallenge.vtv.dto.InspectionResponse;
+import com.certantchallenge.vtv.entity.InspectionEntity;
 
 import java.util.List;
 
 public interface InspectionService {
 
-    InspectionDTO createInspectionDTO(InspectionDTO inspection);
+    InspectionResponse createInspection(InspectionDTO inspection, String idInspector, String idVehicle);
 
-    InspectionDTO updateInspectionDTO(InspectionDTO inspection);
+    InspectionResponse updateInspectionDTO(InspectionDTO inspection, String id, String idVehicle, String idInspector);
 
-    void deleteInspectionDTO(InspectionDTO inspection);
+    void deleteInspectionDTO(String id);
 
-    InspectionDTO getInspectionDTO(String id);
+    InspectionResponse getInspectionDTO(String id);
 
-    List<InspectionDTO> getAllInspections();
+    List<InspectionResponse> getAllInspections();
+
+    InspectionEntity findInspection(String id);
+
+    List<InspectionResponse> findVehiclesByState(String state);
+
+    InspectionEntity findInspectionByVehicleId(String id);
 }

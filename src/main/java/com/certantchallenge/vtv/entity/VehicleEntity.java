@@ -8,6 +8,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicle")
@@ -29,5 +31,9 @@ public class VehicleEntity {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private UserEntity owner;
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "vehicle" ,fetch = FetchType.LAZY)
+    private Set<InspectionEntity> inspections = new HashSet<>();
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "vehicle" ,fetch = FetchType.LAZY)
+    private Set<StickerEntity> stickers = new HashSet<>();
     private Boolean softDelete = Boolean.FALSE;
 }

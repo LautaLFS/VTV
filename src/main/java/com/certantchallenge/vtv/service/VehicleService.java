@@ -1,6 +1,7 @@
 package com.certantchallenge.vtv.service;
 
 import com.certantchallenge.vtv.dto.VehicleDTO;
+import com.certantchallenge.vtv.entity.VehicleEntity;
 
 import java.util.List;
 
@@ -15,4 +16,6 @@ public interface VehicleService {
     void deleteVehicle(String id);
 
     List<VehicleDTO> getAllVehicles();
+
+    VehicleEntity getVehicleById(String idVehicle);
 }

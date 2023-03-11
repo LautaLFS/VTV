@@ -1,28 +1,30 @@
 package com.certantchallenge.vtv.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "measurement")
-@SQLDelete(sql = "UPDATE measurement SET soft_delete = true WHERE id=?")
+@Table(name = "sticker")
+@SQLDelete(sql = "UPDATE sticker SET soft_delete = true WHERE id=?")
 @Where(clause = "soft_delete=false")
 @Getter
 @Setter
-public class MeasurementEntity {
+public class StickerEntity {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name="uuid", strategy = "uuid2")
     private String id;
+    private Integer registrationNumber;
+    private Timestamp expiration;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "vehicle_id")
+    private VehicleEntity vehicle;
     private Boolean isApproved = Boolean.FALSE;
-    private Boolean softDelete = Boolean.FALSE;
 }
-
